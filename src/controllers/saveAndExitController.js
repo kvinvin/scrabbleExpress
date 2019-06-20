@@ -7,7 +7,6 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 transformGameStateToModel = async (gameState) => {
-    console.log("In transform");
     const game = {
         gameName: gameState.gameName,
         username: gameState.username,
@@ -43,11 +42,8 @@ addUser = async (username) => {
 
 handleGameSave = async (gameState) => {
     const usernamePresent = await model.User.findOne({username: gameState.username}).exec();
-    if (usernamePresent === null) {
-        await addUser(gameState.username);
-    }
-    const userID = await model.User.findOne({username: gameState.username}).exec();
-    gameState.username = userID;
+    if (usernamePresent === null) await addUser(gameState.username);
+    gameState.username = await model.User.findOne({username: gameState.username}).exec();
     const gameModel = await transformGameStateToModel(gameState);
     await saveGameToDatabase(gameModel);
 };

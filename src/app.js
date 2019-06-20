@@ -9,6 +9,7 @@ const indexRouter = require('./routes');
 const gamesRouter = require('./routes/gameInitialization');
 //const validateWordRouter = require('./routes/validateWord');
 const saveAndExitRouter = require('./routes/saveAndExit');
+const startGameRouter = require('./routes/startGame');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use('/', indexRouter);
 app.use('/game', gamesRouter);
 //app.use('/validateWord', validateWordRouter);
 app.use('/saveAndExit', saveAndExitRouter);
+app.use('/startGame', startGameRouter);
 
 // catch 404 and forward to error handler ==============================================================================
 app.use(function(req, res, next) {
