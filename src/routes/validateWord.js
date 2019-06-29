@@ -1,11 +1,11 @@
-const fs = require('fs');
+const controller = require('../controllers/validateWordsController')
 const express = require('express');
 const router = express.Router();
 
 //save dictionary as an array
-const txt = fs.readFileSync('../scrabble_dictionary.txt', 'utf-8');
-const dictionary = txt.split("\n");
-const dictionaryLength = dictionary.length;
+//const txt = fs.readFileSync('../scrabble_dictionary.txt', 'utf-8');
+//const dictionary = txt.split("\n");
+//const dictionaryLength = dictionary.length;
 /*
 //does a binary search through
 const searchDictionary = (word, l, r, dic) => {
@@ -34,8 +34,21 @@ validateWords = (words) => {
 };*/
 
 router.post('/', function(req,res) {
-  //const words = req.body.words;
-    //validateWords(words);
+  try {
+    const words = req.body;
+    controller.handleValidation(words)
+        .then((isValid) => {
+          if (isValid) {
+            console.log("Returning true to the front and " + isValid);
+            res.json({isValid: true})
+          }
+          else {
+            console.log("Returning false to the front and " + isValid);
+            res.json({isValid: false});
+          }
+        });
+  } catch (e) {throw error ("Error from router: " + e)}
+
 });
 
 module.exports = router;
