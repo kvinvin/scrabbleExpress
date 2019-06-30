@@ -1,11 +1,5 @@
-const mongoose = require('mongoose');
 const model = require("../db/models");
 const createGameLetterSet = require('../controllers/gameInitializationController');
-
-//Mongoose Setup
-mongoose.connect('mongodb://localhost:27017/scrabbledb', {useNewUrlParser: true});
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
 
 findUserID = async (username) => {
     console.log("Checking users for " + username);
@@ -42,7 +36,7 @@ handleStartGame = async (username, gameName) => {
     if (userID !== null) {
         console.log('startGameController, Found userID: ' + userID._id);
         const gameExists = await model.Game.exists({gameName: gameName, username: userID._id});
-        console.log('startGameController, Received result: ' + gameExists);
+        console.log('startGameController, Received result for game existing: ' + gameExists);
         if (!gameExists) {
             return await setUpGame();
         } else {

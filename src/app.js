@@ -6,10 +6,11 @@ const logger = require('morgan');
 
 // import routers ======================================================================================================
 const indexRouter = require('./routes');
-const gamesRouter = require('./routes/gameInitialization');
+const startGameRouter = require('./routes/startGame');
+const gameInitializationRouter = require('./routes/gameInitialization');
 const validateWordRouter = require('./routes/validateWord');
 const saveAndExitRouter = require('./routes/saveAndExit');
-const startGameRouter = require('./routes/startGame');
+const giveUpRouter = require('./routes/giveUp');
 const okRouter = require('./routes/ok');
 
 const app = express();
@@ -26,10 +27,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routes ==============================================================================================================
 app.use('/', indexRouter);
-app.use('/game', gamesRouter);
+app.use('/startGame', startGameRouter);
+app.use('/game', gameInitializationRouter);
 app.use('/validateWord', validateWordRouter);
 app.use('/saveAndExit', saveAndExitRouter);
-app.use('/startGame', startGameRouter);
+app.use('/giveUp', giveUpRouter);
 app.use('/OK', okRouter);
 
 // catch 404 and forward to error handler ==============================================================================

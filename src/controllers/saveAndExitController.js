@@ -43,6 +43,7 @@ addUser = async (username) => {
 handleGameSave = async (gameState) => {
     const usernamePresent = await model.User.findOne({username: gameState.username}).exec();
     if (usernamePresent === null) await addUser(gameState.username);
+    //assign a reference of the username to the username value
     gameState.username = await model.User.findOne({username: gameState.username}).exec();
     const gameModel = await transformGameStateToModel(gameState);
     await saveGameToDatabase(gameModel);
