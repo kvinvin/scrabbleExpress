@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/giveUpController');
+const controller = require('../controllers/endGameController');
 
 router.post('/', function(req,res) {
     console.log("Hi, in giveUp function");
@@ -13,7 +13,7 @@ router.post('/', function(req,res) {
      */
     const giveUpInfo = req.body;
     console.log("Got body, about to enter controller");
-    controller.handleGiveUp(giveUpInfo).then();
+    controller.handleEndGame(giveUpInfo).then();
     res.send("completed giveUp");
 });
 

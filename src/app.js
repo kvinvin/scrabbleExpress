@@ -10,7 +10,7 @@ const startGameRouter = require('./routes/startGame');
 const gameInitializationRouter = require('./routes/gameInitialization');
 const validateWordRouter = require('./routes/validateWord');
 const saveAndExitRouter = require('./routes/saveAndExit');
-const giveUpRouter = require('./routes/giveUp');
+const endGameRouter = require('./routes/endGame');
 const okRouter = require('./routes/ok');
 
 const app = express();
@@ -31,7 +31,7 @@ app.use('/startGame', startGameRouter);
 app.use('/game', gameInitializationRouter);
 app.use('/validateWord', validateWordRouter);
 app.use('/saveAndExit', saveAndExitRouter);
-app.use('/giveUp', giveUpRouter);
+app.use('/endGame', endGameRouter);
 app.use('/OK', okRouter);
 
 // catch 404 and forward to error handler ==============================================================================

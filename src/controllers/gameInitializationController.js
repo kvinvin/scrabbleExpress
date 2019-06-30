@@ -19,7 +19,7 @@ const generateArrayFromObjects = (objectList) => {
 const shuffle = async (set) => {
     const arraySize = set.length;
     for (let i = arraySize; i > 0; i-- ) {
-        const r = Math.floor(Math.random() * arraySize);
+        const r = Math.floor(Math.random() * i);
         let temp = set[arraySize - 1];
         set[arraySize - 1] = set[r]; //places random var at end of array
         set[r] = temp;

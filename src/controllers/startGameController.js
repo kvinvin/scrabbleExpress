@@ -35,7 +35,7 @@ handleStartGame = async (username, gameName) => {
 
     if (userID !== null) {
         console.log('startGameController, Found userID: ' + userID._id);
-        const gameExists = await model.Game.exists({gameName: gameName, username: userID._id});
+        const gameExists = await model.Game.exists({gameName: gameName, username: username});
         console.log('startGameController, Received result for game existing: ' + gameExists);
         if (!gameExists) {
             return await setUpGame();

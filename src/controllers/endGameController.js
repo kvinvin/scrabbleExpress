@@ -12,12 +12,6 @@ const deleteDoneGame = async (username, gameName) => {
         console.log("Found user with id " + usernamePresent._id + " and actual username " + username);
         await model.Game.deleteOne({username: usernamePresent._id, gameName: gameName})
     }
-    else {
-        const user = new model.User({
-            username: username
-        });
-        await user.save(saveToDB);
-    }
 };
 
 saveToDB = () => {
@@ -30,35 +24,37 @@ saveToDB = () => {
 const updateUserStats = async (username, score) => {
     let usernamePresent = await model.User.findOne({username: username}).exec();
     if (usernamePresent !== null) {
-        if (score > usernamePresent.highScore) {usernamePresent.highScore = score}
+        console.log("user found, updating user data");
+        if (score > usernamePresent.highScore) usernamePresent.highScore = score;
         usernamePresent.totalScore += score;
+        usernamePresent.gamesPlayed += 1;
 
         await model.User.updateOne(
             {_id: usernamePresent._id},
             {$set: {
-                highScore: usernamePresent.score,
+                highScore: usernamePresent.highScore,
                 totalScore: usernamePresent.totalScore,
-                gamesPlayed: usernamePresent.gamesPlayed++}
+                gamesPlayed: usernamePresent.gamesPlayed}
             })
     } else {
-        const user = new model.User({
+        console.log("User not found, creating a new user account");
+        model.User.create({
             username: username,
             highScore: score,
             totalScore: score,
             gamesPlayed: 1
-        });
-        await user.save(saveToDB);
+        }, saveToDB);
     }
 };
 
-const handleGiveUp = async (giveUpInfo) => {
-    console.log("Log controller-handleGiveUp: Hi, I started 1");
+const handleEndGame = async (giveUpInfo) => {
+    console.log("Log controller-handleEndGame: Hi, I started 1");
     await deleteDoneGame(giveUpInfo.username, giveUpInfo.gameName);
-    console.log("Log controller-handleGiveUp: Hi, I started 2");
+    console.log("Log controller-handleEndGame: Hi, I started 2");
     if (giveUpInfo.saveData) {
-        console.log("Log controller-handleGiveUp: Hi, I started 3");
+        console.log("Log controller-handleEndGame: Hi, I started 3");
         await updateUserStats(giveUpInfo.username, giveUpInfo.score);
-        console.log("Log controller-handleGiveUp: Hi, I started 4");
+        console.log("Log controller-handleEndGame: Hi, I started 4");
     }
 
     /*
@@ -74,5 +70,5 @@ const handleGiveUp = async (giveUpInfo) => {
 };
 
 module.exports = {
-    handleGiveUp
+    handleEndGame
 };

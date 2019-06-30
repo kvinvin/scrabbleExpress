@@ -3,15 +3,14 @@ const Schema = mongoose.Schema;
 
 const gameSchema = Schema({
     gameName: {
-        type: 'String',
+        type: String,
         required: true,
         unique: true,
         dropDups: true,
         lowercase: true
     },
     username: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        type: String,
         required: true
     },
     reserveLetters: [{

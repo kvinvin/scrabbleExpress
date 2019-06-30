@@ -40,13 +40,19 @@ addUser = async (username) => {
     await user.save(saveToDB);
 };
 
-handleGameSave = async (gameState) => {
-    const usernamePresent = await model.User.findOne({username: gameState.username}).exec();
-    if (usernamePresent === null) await addUser(gameState.username);
-    //assign a reference of the username to the username value
-    gameState.username = await model.User.findOne({username: gameState.username}).exec();
+handleUserCreation = async (username) => {
+    const usernamePresent = await model.User.findOne({username: username}).exec();
+    if (usernamePresent === null) await addUser(username);
+};
+
+handleGameCreation = async (gameState) => {
     const gameModel = await transformGameStateToModel(gameState);
     await saveGameToDatabase(gameModel);
+};
+
+handleGameSave = async (gameState) => {
+    await handleUserCreation(gameState.username);
+    await handleGameCreation(gameState);
 };
 
 module.exports = {
