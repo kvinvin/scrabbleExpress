@@ -6,6 +6,7 @@ const logger = require('morgan');
 
 // import routers ======================================================================================================
 const indexRouter = require('./routes');
+const getTopPlayersRouter = require('./routes/getTopPlayers');
 const startGameRouter = require('./routes/startGame');
 const gameInitializationRouter = require('./routes/gameInitialization');
 const validateWordRouter = require('./routes/validateWord');
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routes ==============================================================================================================
 app.use('/', indexRouter);
+app.use('/getTopPlayers', getTopPlayersRouter);
 app.use('/startGame', startGameRouter);
 app.use('/game', gameInitializationRouter);
 app.use('/validateWord', validateWordRouter);
