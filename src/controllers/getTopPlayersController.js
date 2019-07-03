@@ -6,7 +6,8 @@ const getBestHighScoreList = async () => {
         .sort({highScore: -1})
         .limit(4);
 
-    console.log('Found in db highScore list as follows: ' + highScoreList);
+    console.log('Found in db highScore list as follows: ' + highScoreList[3]);
+    return highScoreList;
 };
 
 const getBestAverageScoreList = () => {

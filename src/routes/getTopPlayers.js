@@ -6,38 +6,22 @@ router.post('/', async function (req, res, next) {
     const topPlayersType = req.body.topPlayersType;
     let result;
     switch (topPlayersType) {
-        case 'bestHighScore': result =  controller.getBestHighScoreList(); break;
-        case 'bestAverageScore': result =  controller.getBestAverageScoreList(); break;
-        case 'bestTotalScore': result =  controller.getBestTotalScoreList(); break;
+        case 'bestHighScore': result =  await controller.getBestHighScoreList(); break;
+        case 'bestAverageScore': result =  await controller.getBestAverageScoreList(); break;
+        case 'bestTotalScore': result =  await controller.getBestTotalScoreList(); break;
         default: throw Error('standard options were not met, something went wrong with topPlayersType.')
     }
+    const response = [];
+    result.map((value) => {
+        console.log("Going by value: " + value.username);
+        response.push({
+            username: value.username,
+            highScore: value.highScore,
+            gamesPlayed: value.gamesPlayed
+        })
+    });
 
-    res.json({isOk: true, topPlayers: [
-            {
-                _id: null,
-                username: 'firstBack',
-                highScore: 4573,
-                gamesPlayed: 33
-            },
-            {
-                _id: null,
-                username: 'secondBack',
-                highScore: 4573,
-                gamesPlayed: 33
-            },
-            {
-                _id: null,
-                username: 'thirdBack',
-                highScore: 4573,
-                gamesPlayed: 33
-            },
-            {
-                _id: null,
-                username: 'fourthBack',
-                highScore: 4573,
-                gamesPlayed: 33
-            },
-        ]});
+    res.json({isOk: true, topPlayers: response});
 });
 
 module.exports = router;
