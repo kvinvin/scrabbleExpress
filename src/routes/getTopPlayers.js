@@ -21,7 +21,7 @@ router.post('/', async function (req, res, next) {
         })
     });
 
-    res.json({isOk: true, topPlayers: response});
+    res.json({topPlayers: response});
 });
 
 module.exports = router;

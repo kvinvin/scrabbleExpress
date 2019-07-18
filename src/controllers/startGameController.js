@@ -29,21 +29,16 @@ setUpGame = async () => {
 };
 
 handleStartGame = async (username, gameName) => {
-    console.log('startGameController, Entered startGameController');
-
     const userID = await findUserID(username);
 
     if (userID !== null) {
-        console.log('startGameController, Found userID: ' + userID._id);
         const gameExists = await model.Game.exists({gameName: gameName, username: username});
-        console.log('startGameController, Received result for game existing: ' + gameExists);
         if (!gameExists) {
             return await setUpGame();
         } else {
             return gameExists;
         }
     } else {
-        console.log('No user found, creating a new game!');
         return await setUpGame();
     }
 };

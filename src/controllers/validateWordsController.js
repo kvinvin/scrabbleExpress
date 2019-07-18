@@ -15,25 +15,6 @@ const wordsToStrings = (words) => {
     return wordsAsStrings;
 };
 
-//does a binary search through
-const searchDictionary = (word, l, r, dic) => {
-    if (r >= l) {
-        const middle = l + (r-l)/2;
-        const comparedWord = dic[middle];
-
-        if (comparedWord === word) return true;
-        else if (comparedWord > word) {
-            searchDictionary(word, l, middle - 1, dic);
-        }
-        else {
-            searchDictionary(word, middle + 1, r, dic);
-        }
-    }
-    else {
-        return false;
-    }
-};
-
 const handleValidation = async (words) => {
     //returns an array of strings formed from words played
     const wordsAsStrings = wordsToStrings(words);
