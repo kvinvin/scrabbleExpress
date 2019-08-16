@@ -5,7 +5,6 @@ Attributes description:
     points: how many points does this letter give
     frequency: how many times does this letter appear in the game
 */
-
 const a = {
     'letter': 'A',
     'points': 1,

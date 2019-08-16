@@ -1,25 +1,19 @@
-const model = require("../db/models");
+const mongooseCalls = require("../db/mongooseCalls/mongooseCalls");
 
 const getBestHighScoreList = async () => {
-    const highScoreList = await model.User
-        .find()
-        .sort({highScore: -1})
-        .limit(4);
-
-    console.log('Found in db highScore list as follows: ' + highScoreList[3]);
-    return highScoreList;
+    return await mongooseCalls.getHighScoreUsers();
 };
 
-const getBestAverageScoreList = () => {
+//Feature extension: Show different kind of highscore lists
+/*const getBestAverageScoreList = () => {
     return undefined;
-};
+};*/
 
-const getBestTotalScoreList = () => {
+//Feature extension: Show different kind of highscore lists
+/*const getBestTotalScoreList = () => {
     return undefined;
-};
+};*/
 
 module.exports = {
-    getBestHighScoreList,
-    getBestAverageScoreList,
-    getBestTotalScoreList
+    getBestHighScoreList
 };

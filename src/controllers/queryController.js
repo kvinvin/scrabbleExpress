@@ -1,25 +1,24 @@
-const model = require("../db/models");
+const mongooseCalls = require("../db/mongooseCalls/mongooseCalls");
 
-findUserID = async (username) => {
-    console.log("Checking users for " + username);
-    return await model.User.findOne({username: username}).exec();
+handleQuery = async (query) => {
+    const user = await mongooseCalls.findUser(query);
+
+    //0 = no user, 1 = user exists but no games, 2 = user and games found
+    if (user !== null) {
+        let games;
+        let gameNames = [];
+
+        games = await mongooseCalls.findGame(user.username);
+        await games.map(async (game) => {await gameNames.push(game.gameName)});
+
+        if (gameNames.length > 0) {
+            return {exists: 2, games: gameNames};
+        } else {
+            return {exists: 1};
+        }
+    } else return {exists: 0}
 };
 
-/*
-TODO:
-    - once username has been verified to exist, search games
-    - return game names as links
-    - when user clicks a game name, the whole game will get sent from the DB (reduce load) WITH NEW ROUTE
-    - then just render the game
-    - Then I'm done with coding
- */
-
-handleQuery = (query) => {
-    console.log('queryController, Entered handleQuery with: ' + query);
-    const userID = findUserID(query);
-    if (userID !== null) {
-        /*
-        TODO: fetch user's game names and send them back
-         */
-    } else return false //false means no user could be found by this name
+module.exports = {
+    handleQuery
 };

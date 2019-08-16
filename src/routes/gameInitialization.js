@@ -1,9 +1,9 @@
-const createGameLetterSet = require('../controllers/gameInitializationController');
+const createGameLetterSet = require('../controllers/createLetterSetController');
 const express = require('express');
 const router = express.Router();
 
 //initializes a game instance to be used for starting a new game
-router.get('/', async function (req, res, next) {
+router.get('/', async function (req, res) {
     const shuffledLetters = await createGameLetterSet();
     const playerLetters = shuffledLetters.splice(0,7);
 

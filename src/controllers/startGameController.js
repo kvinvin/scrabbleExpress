@@ -1,15 +1,9 @@
-const model = require("../db/models");
-const createGameLetterSet = require('../controllers/gameInitializationController');
-
-findUserID = async (username) => {
-    console.log("Checking users for " + username);
-    return await model.User.findOne({username: username}).exec();
-};
+const mongooseCalls = require("../db/mongooseCalls/mongooseCalls");
+const createGameLetterSet = require('./createLetterSetController');
 
 setUpGame = async () => {
     const shuffledLetters = await createGameLetterSet();
     const playerLetters = shuffledLetters.splice(0,7);
-
     return {
         playerLetters: playerLetters,
         reserveLetters: shuffledLetters,
@@ -29,10 +23,10 @@ setUpGame = async () => {
 };
 
 handleStartGame = async (username, gameName) => {
-    const userID = await findUserID(username);
+    const userID = await mongooseCalls.findUser(username);
 
     if (userID !== null) {
-        const gameExists = await model.Game.exists({gameName: gameName, username: username});
+        const gameExists = await mongooseCalls.doesGameExist(username, gameName);
         if (!gameExists) {
             return await setUpGame();
         } else {

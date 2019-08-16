@@ -4,12 +4,14 @@ const Letters = require('../db/letterData');
 const generateArrayFromObjects = (objectList) => {
     const letters = [];
     Object.keys(objectList).forEach(key => {
+        let i;
         const frequency = objectList[key].frequency;
-        let letter = {
+        const letter = {
             letter: objectList[key].letter,
             points: objectList[key].points
         };
-        for(let i = 0; i < frequency; i++){
+
+        for(i = 0; i < frequency; i++){
             letters.push(letter)
         }
     });
@@ -17,11 +19,17 @@ const generateArrayFromObjects = (objectList) => {
 };
 
 const shuffle = async (set) => {
-    const arraySize = set.length;
-    for (let i = arraySize; i > 0; i-- ) {
-        const r = Math.floor(Math.random() * i);
-        let temp = set[arraySize - 1];
-        set[arraySize - 1] = set[r]; //places random var at end of array
+    let arraySize;
+    let i;
+
+    arraySize = set.length;
+    for (i = arraySize; i > 0; i-- ) {
+        let r;
+        let temp;
+
+        r = Math.floor(Math.random() * i);
+        temp = set[i - 1];
+        set[i - 1] = set[r]; //places random var at end of array
         set[r] = temp;
     }
     return set

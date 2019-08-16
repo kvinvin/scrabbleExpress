@@ -1,8 +1,9 @@
 const express = require('express');
+const router = express.Router();
 const controller = require('../controllers/startGameController');
 
-const router = express.Router();
 router.use(express.json());
+
 
 router.post('/', (req,res) => {
     console.log('Entered startGame with ' + req.body.username + ' ' + req.body.gameName);
