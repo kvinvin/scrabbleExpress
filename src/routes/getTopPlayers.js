@@ -14,7 +14,6 @@ router.post('/', async function (req, res) {
         throw Error('standard options were not met, something went wrong with topPlayersType.')
     }
     result.map((value) => {
-        console.log("Going by value: " + value.username);
         response.push({
             username: value.username,
             highScore: value.highScore

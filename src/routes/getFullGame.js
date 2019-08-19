@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongooseCalls = require("../db/mongooseCalls/mongooseCalls");
 
+//retrieve a game from the database and send the game state to the front-end
 router.post('/', async function (req, res) {
     let gameName;
     let username;
@@ -9,10 +10,7 @@ router.post('/', async function (req, res) {
 
     gameName = req.body.gameName;
     username = req.body.username;
-    console.log("Lets see what we have here: " + gameName + username);
     game = await mongooseCalls.getGame(username, gameName);
-    console.log("To print the full game: " + game);
-    console.log('score is ' + game.score);
     res.json({
         //letters player can play in current round
         playerLetters: game.playerLetters,

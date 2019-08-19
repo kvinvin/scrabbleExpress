@@ -28,10 +28,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes ==============================================================================================================
-app.use('/getTopPlayers', getTopPlayersRouter);             //GET, home page request to get highscore list
+app.use('/getHighScoreList', getTopPlayersRouter);             //GET, home page request to get highscore list
 app.use('/verifyNewGameInput', startGameRouter);            //GET, start a game request
-app.use('/fetchUserGames', queryRouter);                    //POST, search for a user in the username db and return usr games
-app.use('/getSavedGame', getFullGameRouter);                //get a saved game
+app.use('/searchUserGames', queryRouter);                    //POST, search for a user in the username db and return usr games
+app.use('/loadGame', getFullGameRouter);                //get a saved game
 app.use('/createGame', gameInitializationRouter);           //initialize a new game state to start a game
 app.use('/validateWords', validateWordRouter);               //check if a word is present in the dictionary
 app.use('/saveAndExit', saveAndExitRouter);                 //save the game and exit to home page

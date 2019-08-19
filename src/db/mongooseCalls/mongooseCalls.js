@@ -24,7 +24,6 @@ createUser = async (username, score) => {
 };
 
 findUser = async (username) => {
-    console.log("Checking users for " + username);
     return await model.User.findOne({username: username}).exec();
 };
 
