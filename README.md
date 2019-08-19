@@ -14,7 +14,7 @@ by typing `$mongod` in the terminal
 4. Enter the root directory of scrabbleExpress project
 
 5. Type in the following in the terminal: `$npm start`
-
+ 
 
 Now the server and the database are up and running. Next up
 is the front-end. This is described in its own README
